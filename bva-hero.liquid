@@ -1,0 +1,209 @@
+<style type="text/css">  
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
+
+.bva-hero {
+  font-family: 'Roboto', sans-serif;
+}  
+  
+.bva-hero .container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 100%;  
+}
+
+.bva-hero img,
+.bva-hero src,
+.bva-hero  picture {
+    width: 100%;
+}  
+  
+.bva-hero h1,
+.bva-hero p, 
+.bva-hero a {
+    font-family: 'Roboto', sans-serif;
+    text-transform: unset;
+}
+  
+.bva-hero h1,
+.bva-hero p {
+  color: {{ section.settings.text_color }};
+}
+  
+.bva-hero h1 {
+  font-weight: 700;  
+}
+  
+.bva-hero p,
+.bva-hero a {
+  font-weight: 300;
+}
+
+.bva-hero div.title-holder { 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;   
+  width: 100%;
+  padding: 20px;
+}     
+  
+.bva-hero  div.title-holder h1 {      
+  font-size: 36px;
+  line-height: initial;
+}
+  
+.bva-hero  div.title-holder p {      
+  font-size: 18px;
+  padding-bottom: 20px;
+}
+  
+.bva-hero  div.title-holder a {  
+    font-size: 20px;
+    padding: 15px 40px; 
+    border-radius: 40px;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    background-color: {{ section.settings.bg_color }};
+    transition: all ease-in .2s;
+}
+  
+.bva-hero  div.title-holder a:hover {      
+    color: {{ section.settings.bg_color }};
+    background-color: {{ section.settings.text_color }};
+    padding: 15px 50px;
+    letter-spacing: 1.5px;
+}
+
+@media (min-width: 769px) {     
+    .bva-hero div.title-holder { 
+        width: auto;
+        text-align: left;
+        max-width: 560px;
+        padding: 0;
+        {% assign alignment = section.settings.alignment %} 
+        {% case alignment %}   
+              {% when 'left' %}
+                  left: 0;
+                  transform: translate(0, -50%);      
+                  padding-left: 30px;
+              {% when 'right' %}
+                 right: 0;
+                 transform: translate(0, -50%);
+                 padding-right: 30px;  
+              {% else %}
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  text-align: center; 
+                  max-width: 800px;
+        {% endcase %}    
+    }
+
+    .bva-hero  div.title-holder h1 {      
+        font-size: 46px;
+        font-size: 2.5vw;
+    }   
+    .bva-hero  div.title-holder p {      
+        font-size: 24px;
+        font-size: 1.3vw;
+        line-height: 42px;
+        line-height: 2.3vw;
+    }  
+}
+  
+</style>
+
+<div class="bva-hero">
+    <div class="container">    
+  
+        <picture>
+            <source media="(max-width: 600px)" srcset="{{ section.settings.background_img_mobile | img_url: 'master' }}">
+            <source media="(max-width: 768px)" srcset="{{ section.settings.background_img | img_url: '768x' }}">
+            <source media="(min-width: 769px)" srcset="{{ section.settings.background_img | img_url: 'master' }}">     
+            <img src="{{ section.settings.background_img_mobile | img_url: 'master' }}" alt="{{ section.settings.title }}"  class="hero-img">
+        </picture>
+  
+          <div class="title-holder">  
+            <h1>{{ section.settings.title }}</h1>
+            <p>{{ section.settings.subtitle }}</p>
+            <a href="{{ section.settings.linkurl }}">{{ section.settings.linktext }}</a>
+          </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "BVA Hero",
+  "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Title",
+          "default": "Hero Title"
+        },
+        {
+          "id": "subtitle",
+          "type": "textarea",
+          "label": "Subtitle",
+          "default": "In lorem leo, sodales et ullamcorper tempor, facilisis id nibh. Maecenas nibh risus, rutrum nec tellus sed, pharetra gravida nulla. Proin imperdiet"
+        }, 
+        {
+  		 "type": "select",
+           "id": "alignment",
+           "options": [
+              { "value": "left", "label": "Left"},
+              { "value": "center", "label": "Center"},
+              { "value": "right", "label": "Right"}
+           ],
+           "label": "Text alignment (desktop only)",
+           "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "linktext",
+          "label": "Link text",
+          "default": "Read More"
+        },
+        {
+          "type": "url",
+          "id": "linkurl",
+          "label": "Button URL"
+        },
+        {
+           "type": "color",
+           "id": "bg_color",
+           "label": "CTA button color",
+           "default": "#57AD68"
+        },
+        {
+           "type": "color",
+           "id": "text_color",
+           "label": "Text color",
+           "default": "#ffffff"
+        },
+        {
+          "id": "background_img",
+          "type": "image_picker",
+          "label": "Background image"
+        },
+        {
+          "id": "background_img_mobile",
+          "type": "image_picker",
+          "label": "Background image (mobile)"
+        }         
+  ],
+   "presets": [{
+        "name": "BVA Hero",
+        "category": "Image"
+    }]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
